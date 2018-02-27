@@ -7,12 +7,13 @@ print(genanki)
 
 # забить что такое питоновое property
 
-question = "1"
-answer = "2"
+Questions = ["False","class","finally","is","return",
+"None","continue","for","lambda","try","True","def","from","nonlocal","while","and","del","global","not","with",
+"as","elif","if","or","yield","assert","else","import","pass"," break","except","in","raise"]
 
-my_deck = genanki.Deck(
-  2059400110,
-  'Country Capitals')
+deckName = "Python keywords"
+
+my_deck = genanki.Deck(2059400111,str(deckName))
 
 my_model = genanki.Model(
   1607392319,
@@ -29,24 +30,17 @@ my_model = genanki.Model(
     },
   ])
 
-
-MyNote = genanki.Note(
-  model=my_model,
-  fields=[str(question), str(answer)])
-
-MyNote.guid = genanki.guid_for(1, 2)
-MyNote.sort_field = "null"
+for i, string in enumerate(Questions):
+  MyNote = genanki.Note(model=my_model,fields=[str(Questions[i]), " "])
+  MyNote.guid = genanki.guid_for(1, 2)
+  MyNote.sort_field = "null"
+  my_deck.add_note(MyNote)
 
 # class MyNote(genanki.Note):
 #   self.model = None
 #   @property
 #   def guid(self):
 #     return genanki.guid_for(self.fields[0], self.fields[1])
-  
-my_deck.add_note(MyNote)
 
 
-
-genanki.Package(my_deck).write_to_file('outfiles/output.apkg')
-
-print(dir(MyNote))
+genanki.Package(my_deck).write_to_file('outfiles/{0}.apkg'.format(str(deckName)))
